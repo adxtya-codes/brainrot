@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ProductCard from '@/components/ProductCard';
 import { Button } from '@/components/ui/button';
 import { useProducts } from '@/hooks/useProducts';
+import StoreBenefits from '@/components/StoreBenefits';
 
 const categories = [
   { id: 'volume', name: 'Volume One', description: 'barely trying, still hits' },
@@ -105,6 +106,9 @@ const Index = () => {
           </div>
         );
       })}
+
+      {/* Store Benefits Section */}
+      <StoreBenefits />
 
       {/* CTA Section */}
       <div className="text-center bg-muted/30 rounded-lg py-16 px-8">

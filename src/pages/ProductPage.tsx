@@ -113,15 +113,7 @@ const ProductPage = () => {
           {/* Left: Product Images */}
           <div className="mb-8 lg:mb-0">
             <div
-              className="relative overflow-hidden aspect-square"
-              style={{
-                backgroundColor: (() => {
-                  const name = product.name.toLowerCase();
-                  if (name.includes('white') && !name.includes('black')) return '#121212';
-                  if (name.includes('black') && !name.includes('white')) return '#fcfcfc';
-                  return '#f2f7f4';
-                })()
-              }}
+              className={`relative overflow-hidden aspect-square product-bg-${product.name.toLowerCase().includes('white') && !product.name.toLowerCase().includes('black') ? 'dark' : product.name.toLowerCase().includes('black') && !product.name.toLowerCase().includes('white') ? 'light' : 'default'}`}
             >
               <ProductImageSwiper
                 images={[product.image, product.back_side || product.backImage].filter(Boolean)}
@@ -151,7 +143,7 @@ const ProductPage = () => {
                   <Button
                     key={size}
                     variant={selectedSize === size ? undefined : 'outline'}
-                    className={`h-12 transition-colors ${selectedSize === size ? 'bg-white text-black border border-black' : ''}`}
+                    className={`h-12 transition-colors ${selectedSize === size ? 'bg-white text-black border border-black selected-size' : ''}`}
                     onClick={() => setSelectedSize(size)}
                   >
                     {size}
@@ -160,7 +152,7 @@ const ProductPage = () => {
               </div>
             </div>
             <Button
-              className="w-full h-12 text-lg mb-3"
+              className={`w-full h-12 text-lg mb-3 ${selectedSize ? 'bg-white text-black border border-black' : ''}`}
               onClick={handleAddToCart}
               disabled={!selectedSize}
             >

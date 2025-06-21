@@ -3,6 +3,47 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* If Tailwind is not active in your environment, comment out the above lines and use standard CSS. */
+
+/* Product page image backgrounds */
+.product-bg-dark {
+  background-color: #121212 !important;
+}
+.product-bg-light {
+  background-color: #fcfcfc !important;
+}
+.product-bg-default {
+  background-color: #f2f7f4 !important;
+}
+
+/* Selected size and Add to Cart button (always white bg, black text/border) */
+.selected-size,
+button.selected-size,
+button.bg-white.text-black.border.border-black {
+  background: #fff !important;
+  color: #111 !important;
+  border: 2px solid #111 !important;
+}
+
+@media (max-width: 768px) {
+  .selected-size,
+  button.selected-size,
+  button.bg-white.text-black.border.border-black {
+    background: #fff !important;
+    color: #111 !important;
+    border: 2px solid #111 !important;
+  }
+  .product-bg-dark {
+    background-color: #121212 !important;
+  }
+  .product-bg-light {
+    background-color: #fcfcfc !important;
+  }
+  .product-bg-default {
+    background-color: #f2f7f4 !important;
+  }
+}
+
 
 @layer base {
   :root {
@@ -70,14 +111,18 @@
 
 @layer base {
   * {
-    @apply border-border;
+    /* border: 1px solid var(--border); */
+    border-color: hsl(var(--border));
   }
 
   body {
-    @apply bg-background text-foreground;
+    /* background: hsl(var(--background)); color: hsl(var(--foreground)); */
+    background: #fff;
+    color: #000;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   }
 }
+
 
 /* Category grid for horizontal scrolling sections */
 .category-grid {
@@ -128,4 +173,6 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  /* Standard property for compatibility */
+  line-clamp: 2;
 }

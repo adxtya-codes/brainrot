@@ -112,9 +112,9 @@ const ProductPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left: Product Images */}
           <div className="mb-8 lg:mb-0">
-            <div
-              className={`relative overflow-hidden aspect-square product-bg-${product.name.toLowerCase().includes('white') && !product.name.toLowerCase().includes('black') ? 'dark' : product.name.toLowerCase().includes('black') && !product.name.toLowerCase().includes('white') ? 'light' : 'default'}`}
-            >
+             <div
+               className={`relative overflow-hidden aspect-square product-bg-${product.name.toLowerCase().includes('white') && !product.name.toLowerCase().includes('black') ? 'dark' : product.name.toLowerCase().includes('black') && !product.name.toLowerCase().includes('white') ? 'light' : 'default'} flex items-center justify-center p-4 sm:p-8`}
+             >
               <ProductImageSwiper
                 images={[product.image, product.back_side || product.backImage].filter(Boolean)}
                 name={product.name}

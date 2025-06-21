@@ -9,7 +9,7 @@ export const useProducts = () => {
     queryFn: async (): Promise<Product[]> => {
       const { data, error } = await supabase
         .from('products')
-        .select('*');
+        .select('*'); // bio will be included if present in schema
 
       if (error) {
         console.error('Error fetching products:', error);
@@ -47,6 +47,7 @@ export const useProducts = () => {
           backImage: product.back_side || undefined,
           sizes: product.sizes ? product.sizes.split(',') : ['S', 'M', 'L', 'XL'],
           description: product.description || '',
+          bio: product.bio || '',
           images,
           category: product.category || 'featured'
         }

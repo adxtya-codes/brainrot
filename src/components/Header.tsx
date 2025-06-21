@@ -35,10 +35,18 @@ const Header = () => {
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold tracking-tight">
-            brainrot
-          </Link>
+          {/* Logo and Shop */}
+          <div className="flex items-center gap-8">
+            <Link to="/" className="text-2xl font-bold tracking-tight">
+              brainrot
+            </Link>
+            <Link to="/" className="text-base font-medium hover:underline text-muted-foreground">
+              Shop
+            </Link>
+            <Link to="/orders" className="text-base font-medium hover:underline text-muted-foreground">
+              Orders
+            </Link>
+          </div>
 
           {/* Search Bar - Hidden on mobile */}
           <form onSubmit={handleSearch} className="hidden md:flex items-center space-x-2 flex-1 max-w-md mx-8">
@@ -101,7 +109,7 @@ const Header = () => {
                 {isAuthenticated ? (
                   <>
                     <DropdownMenuItem onClick={() => navigate('/orders')}>
-                      Order History
+                      My Orders
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate('/account')}>
                       Account

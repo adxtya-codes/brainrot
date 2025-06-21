@@ -9,6 +9,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
 
 // Pages
 import Index from "./pages/Index";
@@ -26,6 +27,8 @@ import NotFound from "./pages/NotFound";
 import SizeGuidePage from "./pages/SizeGuide";
 import ShippingReturnPage from "./pages/ShippingReturnPage";
 import FAQPage from "./pages/FAQ";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import AccountPage from "./pages/AccountPage";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +41,7 @@ const App = () => (
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <ScrollToTop />
               <div className="min-h-screen flex flex-col bg-background text-foreground dark">
                 <Header />
                 <main className="flex-1">
@@ -51,11 +55,13 @@ const App = () => (
                     <Route path="/orders" element={<OrdersPage />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/wishlist" element={<WishlistPage />} />
+                    <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                     <Route path="/size-guide" element={<SizeGuidePage />} />
                     <Route path="/shipping-return" element={<ShippingReturnPage />} />
                     <Route path="/faq" element={<FAQPage />} />
+                    <Route path="/account" element={<AccountPage />} />
                     <Route path="*" element={<NotFound />} />
                   </Routes>
                 </main>

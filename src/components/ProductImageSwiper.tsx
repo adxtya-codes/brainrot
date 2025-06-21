@@ -23,6 +23,14 @@ const ProductImageSwiper: React.FC<ProductImageSwiperProps> = ({ images, name, e
 
   if (!images.length) return null;
 
+  // Preload all images
+  React.useEffect(() => {
+    images.forEach((img) => {
+      const preloadImg = new window.Image();
+      preloadImg.src = img;
+    });
+  }, [images]);
+
   // Main image area (click to zoom if enabled)
   const imageArea = (
     <div

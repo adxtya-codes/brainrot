@@ -3,9 +3,11 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 const CartPage = () => {
   const { items, updateQuantity, removeItem, getTotalPrice, getTotalItems } = useCart();
+  const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   if (items.length === 0) {
@@ -98,9 +100,20 @@ const CartPage = () => {
             </div>
 
             <div className="space-y-3">
+              {!isAuthenticated && (
+                <div className="mb-2 text-center text-base text-red-600 font-semibold">
+                  Please Sign In first to Order
+                </div>
+              )}
               <Button
-                onClick={() => navigate('/checkout')}
+                onClick={() => {
+                  if (!isAuthenticated) return;
+                  navigate('/checkout');
+                }}
                 className="w-full h-12"
+                disabled={!isAuthenticated}
+                aria-disabled={!isAuthenticated}
+                title={!isAuthenticated ? 'Please sign in to proceed to checkout' : undefined}
               >
                 Proceed to Checkout
               </Button>

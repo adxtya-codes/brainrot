@@ -123,7 +123,10 @@ const ProductPage = () => {
                 })()
               }}
             >
-              <ProductImageSwiper images={product.images || [product.image]} name={product.name} />
+              <ProductImageSwiper
+                images={[product.image, product.back_side].filter(Boolean)}
+                name={product.name}
+              />
             </div>
           </div>
           {/* Right: Product Details */}
@@ -135,7 +138,9 @@ const ProductPage = () => {
               )}
               <span>Rs.{product.price}</span>
             </div>
-            <div className="text-base text-gray-300 mb-6 whitespace-pre-line">{product.description}</div>
+            {product.bio && (
+              <div className="text-base text-gray-300 mb-6 whitespace-pre-line">{product.bio}</div>
+            )}
             <div className="mb-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="font-semibold">Size</span>
@@ -145,8 +150,8 @@ const ProductPage = () => {
                 {product.sizes.map(size => (
                   <Button
                     key={size}
-                    variant={selectedSize === size ? 'default' : 'outline'}
-                    className="h-12"
+                    variant={selectedSize === size ? undefined : 'outline'}
+                    className={`h-12 transition-colors ${selectedSize === size ? 'bg-white text-black border border-black' : ''}`}
                     onClick={() => setSelectedSize(size)}
                   >
                     {size}

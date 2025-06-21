@@ -15,10 +15,12 @@ export interface Product {
   onSale?: boolean;
   image: string;
   backImage?: string; // Optional back side image
+  back_side?: string; // Optional back side image for consistency
   sizes: string[];
   category?: string;
   description?: string;
   images?: string[];
+  bio?: string;
 }
 
 interface ProductCardProps {
@@ -61,6 +63,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
               target.src = 'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=400&h=400&fit=crop';
             }}
           />
+          {/* Preload back image for instant hover */}
+          {product.backImage && (
+            <img
+              src={product.backImage}
+              alt="Preload back"
+              style={{ display: 'none' }}
+              aria-hidden="true"
+            />
+          )}
           {/* Sale Badge */}
           {typeof product.real_price === 'number' && product.real_price > product.price && (
             <div className="absolute top-2 left-2">

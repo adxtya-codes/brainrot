@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/lib/supabaseClient';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -26,17 +27,39 @@ const ContactPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you within 24 hours."
-    });
-
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    setIsSubmitting(false);
+    try {
+      const { error } = await supabase.from('contact_messages').insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          submitted_at: new Date().toISOString(),
+        }
+      ]);
+      if (error) {
+        toast({
+          title: 'Failed to send message',
+          description: error.message,
+          variant: 'destructive',
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      toast({
+        title: 'Message sent!',
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err: any) {
+      toast({
+        title: 'Error',
+        description: err?.message || 'Unknown error',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

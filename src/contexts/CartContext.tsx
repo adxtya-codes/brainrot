@@ -23,7 +23,15 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    const stored = localStorage.getItem('cart_items');
+    return stored ? JSON.parse(stored) : [];
+  });
+
+  // Persist cart to localStorage whenever items change
+  React.useEffect(() => {
+    localStorage.setItem('cart_items', JSON.stringify(items));
+  }, [items]);
 
   const addItem = (newItem: Omit<CartItem, 'quantity'>) => {
     setItems(prev => {

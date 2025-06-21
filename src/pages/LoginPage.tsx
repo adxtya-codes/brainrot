@@ -11,6 +11,7 @@ const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [formError, setFormError] = useState<string | null>(null);
   
   const { login } = useAuth();
   const { toast } = useToast();
@@ -18,29 +19,22 @@ const LoginPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError(null);
     setIsLoading(true);
 
     try {
-      const success = await login(email, password);
-      if (success) {
+      const result = await login(email, password);
+      if (result.success) {
         toast({
           title: "Welcome back!",
           description: "You've successfully logged in."
         });
         navigate('/');
       } else {
-        toast({
-          title: "Login failed",
-          description: "Invalid email or password.",
-          variant: "destructive"
-        });
+        setFormError(result.error || 'Login failed.');
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive"
-      });
+      setFormError('Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -56,6 +50,11 @@ const LoginPage = () => {
           </p>
         </div>
 
+        {formError && (
+          <div className="bg-black text-white rounded-lg px-4 py-3 text-sm text-center mb-2 border border-zinc-800">
+            {formError}
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <Label htmlFor="email">Email</Label>
@@ -79,6 +78,12 @@ const LoginPage = () => {
               required
               className="mt-1"
             />
+          </div>
+
+          <div className="flex justify-end">
+            <Link to="/forgot-password" className="text-sm text-primary underline hover:text-primary/80">
+              Forgot Password?
+            </Link>
           </div>
 
           <Button

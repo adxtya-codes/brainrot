@@ -52,7 +52,7 @@ const Index = () => {
             brainrot
           </h1>
           <p className="text-xl md:text-2xl font-light text-muted-foreground">
-          Internet made. IRL approveddd.
+          Internet made. IRL approved🔮.
           </p>
           <p className="text-sm text-muted-foreground max-w-md mx-auto">
           </p>
@@ -73,7 +73,7 @@ const Index = () => {
           brainrot
         </h1>
         <p className="text-xl md:text-2xl font-light text-muted-foreground">
-          Internet made. IRL approveddd.
+          Internet made. IRL approved🔮.
         </p>
         <p className="text-sm text-muted-foreground max-w-md mx-auto">
         </p>

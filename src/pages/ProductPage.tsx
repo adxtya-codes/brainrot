@@ -124,7 +124,7 @@ const ProductPage = () => {
               }}
             >
               <ProductImageSwiper
-                images={[product.image, product.back_side].filter(Boolean)}
+                images={[product.image, product.back_side || product.backImage].filter(Boolean)}
                 name={product.name}
               />
             </div>
